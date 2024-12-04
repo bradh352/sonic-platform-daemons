@@ -131,7 +131,7 @@ def subscribe_port_update_event(namespaces, logger):
             port_tbl.filter = d['FILTER'] if 'FILTER' in d else None
             asic_context[port_tbl] = asic_id
             sel.addSelectable(port_tbl)
-            logger.log_warning("subscribing to port_tbl {} - {} DB of namespace {} ".format(
+            logger.log_notice("subscribing to port_tbl {} - {} DB of namespace {} ".format(
                                         port_tbl, list(d.values())[0], namespace))
     return sel, asic_context
 
@@ -163,7 +163,7 @@ def handle_port_update_event(sel, asic_context, stop_event, logger, port_change_
                 if not validate_port(key):
                     continue
                 fvp = dict(fvp) if fvp is not None else {}
-                logger.log_warning("$$$ {} handle_port_update_event() : op={} DB:{} Table:{} fvp {}".format(
+                logger.log_notice("$$$ {} handle_port_update_event() : op={} DB:{} Table:{} fvp {}".format(
                                                         key, op, port_tbl.db_name, port_tbl.table_name, fvp))
 
                 if 'index' not in fvp:
@@ -205,7 +205,7 @@ def handle_port_update_event(sel, asic_context, stop_event, logger, port_change_
                                                         PortChangeEvent.PORT_DEL,
                                                         fvp)
             # This is the final event considered for processing
-            logger.log_warning("*** {} handle_port_update_event() fvp {}".format(
+            logger.log_notice("*** {} handle_port_update_event() fvp {}".format(
                 key, fvp))
             if port_change_event is not None:
                port_change_event_handler(port_change_event)
